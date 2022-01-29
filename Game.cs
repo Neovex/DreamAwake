@@ -23,11 +23,12 @@ namespace DreamAwake
             map.AddKeyboardMapping(Keyboard.Key.D, GameAction.Right);
             map.AddKeyboardMapping(Keyboard.Key.Right, GameAction.Right);
 
-            map.AddKeyboardMapping(Keyboard.Key.Space, GameAction.Jump);
             map.AddKeyboardMapping(Keyboard.Key.W, GameAction.Jump);
+            map.AddKeyboardMapping(Keyboard.Key.Up, GameAction.Jump);
+            map.AddKeyboardMapping(Keyboard.Key.Space, GameAction.Jump);
 
-            map.AddKeyboardMapping(Keyboard.Key.E, GameAction.Activate);
-            map.AddKeyboardMapping(Keyboard.Key.LAlt, GameAction.Activate);
+            map.AddKeyboardMapping(Keyboard.Key.F, GameAction.Activate);
+            map.AddKeyboardMapping(Keyboard.Key.RControl, GameAction.Activate);
         }
     }
 }
