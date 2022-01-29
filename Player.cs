@@ -26,6 +26,7 @@ namespace DreamAwake
 
         private Vector2f _Direction;
         private Vector2f _Velocity;
+        private Vector2f _CharacterAnimationOffset = new Vector2f(16, -32);
 
         public float _MovementSpeed { get; set; }
         public float _JumpForce { get; set; }
@@ -35,33 +36,34 @@ namespace DreamAwake
 
         private bool _IsGrounded = true;
         private bool _HasJumped = false;
+        private bool _InTheDark = false;
 
 
         // animation lists
         private IntRect[] _IdleShadowDefinitionFrames;
         private int _SizeIdleShadowAnim = 2;
         private BlittingAnimation _IdleShadowAnimation;
-        private float _durationIdleShadow = 175f;
+        private float _durationIdleShadow = 0.175f;
 
         private IntRect[] _IdleNormalDefinitionFrames;
         private int _SizeIdleNormalAnim = 2;
         private BlittingAnimation _IdleNormalAnimation;
-        private float _durationIdleNormal = 175f;
+        private float _durationIdleNormal = 0.175f;
 
         private IntRect[] _JumpShadowDefinitionFrames;
         private int _SizeJumpShadowAnim = 4;
         private BlittingAnimation _JumpShadowAnimation;
-        private float _durationJumpShadow = 175f;
+        private float _durationJumpShadow = 0.175f;
 
         private IntRect[] _JumpNormalDefinitionFrames;
         private int _SizeJumpNormalAnim = 4;
         private BlittingAnimation _JumpNormalAnimation;
-        private float _durationJumpNormal = 175f;
+        private float _durationJumpNormal = 0.175f;
 
         private IntRect[] _WalkShadowDefinitionFrames;
         private int _SizeWalkShadowAnim = 4;
         private BlittingAnimation _WalkShadowAnimation;
-        private float _durationWalkShadow = 175f;
+        private float _durationWalkShadow = 0.175f;
 
         private IntRect[] _WalkNormalDefinitionFrames;
         private int _SizeWalkNormalAnim = 4;
@@ -77,7 +79,7 @@ namespace DreamAwake
             _Dot = new Circle(_Core, _DotRadius, Color.Blue, Color.Yellow);
             _Dot.Position = new Vector2f(360, 500);
 
-            _JumpForce = 750f;
+            _JumpForce = 480f;
             _GravityForce = -9.81f;
             _MovementSpeed = 100f;
 
@@ -86,34 +88,42 @@ namespace DreamAwake
             _IdleShadowDefinitionFrames = new IntRect[_SizeIdleShadowAnim];
             IntRectFill(_IdleShadowDefinitionFrames, _SizeIdleShadowAnim);
             _IdleShadowAnimation = new BlittingAnimation(_Core, _durationIdleShadow, textureLoader.Load("Idle"), _IdleShadowDefinitionFrames);
-            //_IdleShadowAnimation.Position = new Vector2f(200, 200);
-            // Add(_IdleShadowAnimation);
-
+            Add(_IdleShadowAnimation);
 
             _IdleNormalDefinitionFrames = new IntRect[_SizeIdleNormalAnim];
             IntRectFill(_IdleNormalDefinitionFrames, _SizeIdleNormalAnim);
             _IdleNormalAnimation = new BlittingAnimation(_Core, _durationIdleNormal, textureLoader.Load("Idle_Normal"), _IdleNormalDefinitionFrames);
+            Add(_IdleNormalAnimation);
 
             _JumpShadowDefinitionFrames = new IntRect[_SizeJumpShadowAnim];
             IntRectFill(_JumpShadowDefinitionFrames, _SizeJumpShadowAnim);
             _JumpShadowAnimation = new BlittingAnimation(_Core, _durationJumpShadow, textureLoader.Load("Jump"), _JumpShadowDefinitionFrames);
+            Add(_JumpShadowAnimation);
 
             _JumpNormalDefinitionFrames = new IntRect[_SizeJumpNormalAnim];
             IntRectFill(_JumpNormalDefinitionFrames, _SizeJumpNormalAnim);
             _JumpNormalAnimation = new BlittingAnimation(_Core, _durationJumpNormal, textureLoader.Load("Jump_Normal"), _JumpNormalDefinitionFrames);
+            Add(_JumpNormalAnimation);
 
             _WalkShadowDefinitionFrames = new IntRect[_SizeWalkShadowAnim];
             IntRectFill(_WalkShadowDefinitionFrames, _SizeWalkShadowAnim);
             _WalkShadowAnimation = new BlittingAnimation(_Core, _durationWalkShadow, textureLoader.Load("Walk"), _WalkShadowDefinitionFrames);
-            //_WalkShadowAnimation.Position = new Vector2f(100, 100);
-            //Add(_WalkShadowAnimation);
-
+            Add(_WalkShadowAnimation);
 
             _WalkNormalDefinitionFrames = new IntRect[_SizeWalkNormalAnim];
             IntRectFill(_WalkNormalDefinitionFrames, _SizeWalkNormalAnim);
             _WalkNormalAnimation = new BlittingAnimation(_Core, _durationWalkNormal, textureLoader.Load("Walk_Normal"), _WalkNormalDefinitionFrames);
-            _WalkNormalAnimation.Position = new Vector2f(200, 200);
             Add(_WalkNormalAnimation);
+
+
+            _WalkNormalAnimation.Origin = new Vector2f(16, 32);
+            _IdleShadowAnimation.Origin = new Vector2f(16, 32);
+            _IdleNormalAnimation.Origin = new Vector2f(16, 32);
+            _JumpShadowAnimation.Origin = new Vector2f(16, 32);
+            _JumpNormalAnimation.Origin = new Vector2f(16, 32);
+            _WalkShadowAnimation.Origin = new Vector2f(16, 32);
+
+
         }
 
 
@@ -123,21 +133,54 @@ namespace DreamAwake
             {
                 case GameAction.Left:
                     if (activate)
+                    { 
                         _Direction = new Vector2f(-_MovementSpeed, _Direction.Y);
+
+                        _IdleShadowAnimation.Scale = new Vector2f(-1, 1);
+                        _IdleNormalAnimation.Scale = new Vector2f(-1, 1);
+                        _JumpShadowAnimation.Scale = new Vector2f(-1, 1);
+                        _JumpNormalAnimation.Scale = new Vector2f(-1, 1);
+                        _WalkShadowAnimation.Scale = new Vector2f(-1, 1);
+                        _WalkNormalAnimation.Scale = new Vector2f(-1, 1);
+
+                    }
                     else
+                    {
                         _Direction = new Vector2f(0, _Direction.Y);
+                    }
                     break;
                 case GameAction.Right:
                     if (activate)
+                    {
                         _Direction = new Vector2f(_MovementSpeed, _Direction.Y);
+
+                        _IdleShadowAnimation.Scale = new Vector2f(1, 1);
+                        _IdleNormalAnimation.Scale = new Vector2f(1, 1);
+                        _JumpShadowAnimation.Scale = new Vector2f(1, 1);
+                        _JumpNormalAnimation.Scale = new Vector2f(1, 1);
+                        _WalkShadowAnimation.Scale = new Vector2f(1, 1);
+                        _WalkNormalAnimation.Scale = new Vector2f(1, 1);
+
+                    }
                     else
+                    {
                         _Direction = new Vector2f(0, _Direction.Y);
+                    }
                     break;
                 case GameAction.Jump:
-                    if (activate && (_Dot.Position.Y == _GroundLevel))
+                    if (activate && _IsGrounded)
                         _HasJumped = true;
                     break;
                 case GameAction.Activate:
+                    {
+                        if (activate)
+                        {
+                            if (_InTheDark)
+                                _InTheDark = false;
+                            else
+                                _InTheDark = true;
+                        }
+                    }
                     break;
                 default:
                     break;
@@ -147,12 +190,13 @@ namespace DreamAwake
         public override void Update(float deltaT)
         {
             base.Update(deltaT);
-            //IsGrounded();
+            IsGrounded();
 
             if (_HasJumped)
             {
                 _Velocity = new Vector2f(0, -_JumpForce);
                 _HasJumped = false;
+
 
             }
             else
@@ -164,8 +208,85 @@ namespace DreamAwake
 
             _Dot.Position += (_Direction + _Velocity) * deltaT;
 
+
+
+            // animation logic
+            if (_IsGrounded && (_Direction.X == 0))
+            {
+                if (_InTheDark)
+                {
+                    _IdleShadowAnimation.Visible = true;
+                    _IdleNormalAnimation.Visible = false;
+                    _JumpShadowAnimation.Visible = false;
+                    _JumpNormalAnimation.Visible = false;
+                    _WalkShadowAnimation.Visible = false;
+                    _WalkNormalAnimation.Visible = false;
+                }
+                else
+                {
+                    _IdleShadowAnimation.Visible = false;
+                    _IdleNormalAnimation.Visible = true;
+                    _JumpShadowAnimation.Visible = false;
+                    _JumpNormalAnimation.Visible = false;
+                    _WalkShadowAnimation.Visible = false;
+                    _WalkNormalAnimation.Visible = false;
+                }
+            }
+            else if (_IsGrounded)
+            {
+                if (_InTheDark)
+                {
+                    _IdleShadowAnimation.Visible = false;
+                    _IdleNormalAnimation.Visible = false;
+                    _JumpShadowAnimation.Visible = false;
+                    _JumpNormalAnimation.Visible = false;
+                    _WalkShadowAnimation.Visible = true;
+                    _WalkNormalAnimation.Visible = false;
+                }
+                else
+                {
+                    _IdleShadowAnimation.Visible = false;
+                    _IdleNormalAnimation.Visible = false;
+                    _JumpShadowAnimation.Visible = false;
+                    _JumpNormalAnimation.Visible = false;
+                    _WalkShadowAnimation.Visible = false;
+                    _WalkNormalAnimation.Visible = true;
+                }
+            }
+            else
+            {
+                if (_InTheDark)
+                {
+                    _IdleShadowAnimation.Visible = false;
+                    _IdleNormalAnimation.Visible = false;
+                    _JumpShadowAnimation.Visible = true;
+                    _JumpNormalAnimation.Visible = false;
+                    _WalkShadowAnimation.Visible = false;
+                    _WalkNormalAnimation.Visible = false;
+                }
+                else
+                {
+                    _IdleShadowAnimation.Visible = false;
+                    _IdleNormalAnimation.Visible = false;
+                    _JumpShadowAnimation.Visible = false;
+                    _JumpNormalAnimation.Visible = true;
+                    _WalkShadowAnimation.Visible = false;
+                    _WalkNormalAnimation.Visible = false;
+                }
+            }
+
+
             if (_Dot.Position.Y >= _GroundLevel)
                 _Dot.Position = new Vector2f(_Dot.Position.X, _GroundLevel);
+
+
+            _IdleShadowAnimation.Position = _Dot.Position;
+            _IdleNormalAnimation.Position = _Dot.Position;
+            _JumpShadowAnimation.Position = _Dot.Position;
+            _JumpNormalAnimation.Position = _Dot.Position;
+            _WalkShadowAnimation.Position = _Dot.Position;
+            _WalkNormalAnimation.Position = _Dot.Position;
+
 
             CameraFocus = _Dot.Position;
         }
