@@ -7,6 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\GameJam_DreamWake_BasicLayer002.ogg" />
+    <None Remove="Assets\GameJam_DreamWake_DarkWorld002.ogg" />
+    <None Remove="Assets\GameJam_DreamWake_LightWorld002.ogg" />
     <None Remove="Assets\Idle.png" />
     <None Remove="Assets\Idle_Normal.png" />
     <None Remove="Assets\Jump.png" />
@@ -18,6 +21,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\GameJam_DreamWake_BasicLayer002.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\GameJam_DreamWake_DarkWorld002.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\GameJam_DreamWake_LightWorld002.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Idle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -7,6 +7,7 @@ using BlackCoat;
 using BlackCoat.Entities;
 using BlackCoat.Entities.Shapes;
 using BlackCoat.InputMapping;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -20,6 +21,11 @@ namespace DreamAwake
         private View _View;
 
         private bool _Light;
+
+        private Music _BaseMusic;
+        private Music _LightMusic;
+        private Music _DarkMusic;
+
 
         public bool Light
         {
@@ -80,6 +86,20 @@ namespace DreamAwake
                 Layer_Background.Add(mapRenderer);
             }
 
+            // Music
+            _BaseMusic = MusicLoader.Load("GameJam_DreamWake_BasicLayer002");
+            _LightMusic = MusicLoader.Load("GameJam_DreamWake_LightWorld002");
+            _DarkMusic = MusicLoader.Load("GameJam_DreamWake_DarkWorld002");
+            _BaseMusic.Play();
+            _LightMusic.Play();
+            _DarkMusic.Play();
+            _BaseMusic.Loop = true;
+            _LightMusic.Loop = true;
+            _DarkMusic.Loop = true;
+
+            _BaseMusic.Volume = 100;
+            _DarkMusic.Volume = 0;
+            _LightMusic.Volume = 100;
 
             Light = true;
             return true;
@@ -104,6 +124,17 @@ namespace DreamAwake
         protected override void Update(float deltaT)
         {
             _View.Center = _Player.CameraFocus;
+
+            if(Light)
+            {
+                _DarkMusic.Volume = 0;
+                _LightMusic.Volume = 100;
+            }
+            else if (!Light)
+            {
+                _DarkMusic.Volume = 100;
+                _LightMusic.Volume = 0;
+            }
         }
 
         protected override void Destroy()
