@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BlackCoat;
+using BlackCoat.Entities;
 using BlackCoat.Entities.Shapes;
 using BlackCoat.InputMapping;
 using SFML.Graphics;
@@ -39,8 +40,6 @@ namespace DreamAwake
                 case GameAction.Jump:
                     break;
                 case GameAction.Activate:
-                    break;
-                default:
                     break;
             }
         }

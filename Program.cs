@@ -27,7 +27,7 @@ namespace DreamAwake
 #if DEBUG
                 core.Debug = true;
 #endif
-                //core.SceneManager.ChangeScene(new BlackCoatIntro(core, new TitleScene(core)));
+                //core.SceneManager.ChangeScene(new BlackCoatIntro(core, new Level1Scene(core)));
                 core.SceneManager.ChangeScene(new Level1Scene(core));
                 core.Run();
             }
