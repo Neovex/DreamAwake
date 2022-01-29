@@ -7,15 +7,39 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Idle.png" />
+    <None Remove="Assets\Idle_Normal.png" />
+    <None Remove="Assets\Jump.png" />
+    <None Remove="Assets\Jump_Normal.png" />
     <None Remove="Assets\test.tmx" />
     <None Remove="Assets\tiles_28.png" />
+    <None Remove="Assets\Walk.png" />
+    <None Remove="Assets\Walk_Normal.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Assets\Idle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Idle_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Jump.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Jump_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\test.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\tiles_28.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Walk.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Walk_Normal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
