@@ -31,6 +31,7 @@ namespace DreamAwake
             // Player
             _Player = new Player(_Core, _InputMap);
             Layer_Game.Add(_Player);
+            OpenInspector(_Player);
 
             // Tile Map
             var tex = TextureLoader.Load("tiles_28");
