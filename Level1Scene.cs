@@ -16,6 +16,7 @@ namespace DreamAwake
     {
         private SimpleInputMap<GameAction> _InputMap;
         private Player _Player;
+        private MapRenderer _Map;
 
         public Level1Scene(Core core) : base(core, "Level1", "Assets")
         {
@@ -27,8 +28,23 @@ namespace DreamAwake
             _InputMap.MappedOperationInvoked += HandleInput;
             Game.SetupInput(_InputMap);
 
+            // Player
             _Player = new Player(_Core, _InputMap);
             Layer_Game.Add(_Player);
+
+            // Tile Map
+            var tex = TextureLoader.Load("tiles_28");
+            var mapData = new MapData();
+            mapData.Load(_Core, "Assets\\test.tmx");
+            foreach (var layer in mapData.Layer)
+            {
+                var mapRenderer = new MapRenderer(_Core, mapData.MapSize, tex, mapData.TileSize);
+                for (int i = 0; i < layer.Length; i++)
+                {
+                    mapRenderer.AddTile(i * 4, layer[i].Pos, layer[i].Cod);
+                }
+                Layer_Background.Add(mapRenderer);
+            }
 
             return true;
         }

@@ -12,6 +12,7 @@ namespace DreamAwake
 #if !DEBUG
             var launcher = new Launcher()
             {
+                //BannerImage = Image.FromFile("Assets\\Banner.png"),
                 Text = Game.TITLE
             };
             var device = Device.Create(launcher, Game.TITLE);
