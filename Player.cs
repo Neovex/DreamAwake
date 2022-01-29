@@ -15,6 +15,7 @@ namespace DreamAwake
 
     class Player : Container
     {
+        public Vector2f CameraFocus { get; set; }
 
         private SimpleInputMap<GameAction> _InputMap;
         private Circle _Dot;
@@ -103,7 +104,8 @@ namespace DreamAwake
 
             if (_Dot.Position.Y >= _GroundLevel)
                 _Dot.Position = new Vector2f(_Dot.Position.X, _GroundLevel);
-         
+
+            CameraFocus = _Dot.Position;
         }
 
 

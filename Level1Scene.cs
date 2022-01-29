@@ -17,6 +17,7 @@ namespace DreamAwake
         private SimpleInputMap<GameAction> _InputMap;
         private Player _Player;
         private MapRenderer _Map;
+        private View _View;
 
         public Level1Scene(Core core) : base(core, "Level1", "Assets")
         {
@@ -24,9 +25,16 @@ namespace DreamAwake
 
         protected override bool Load()
         {
+            // Input
             _InputMap = new SimpleInputMap<GameAction>(Input);
             _InputMap.MappedOperationInvoked += HandleInput;
             Game.SetupInput(_InputMap);
+
+            // View
+            _View = new View(_Core.DeviceSize / 2, _Core.DeviceSize);
+            _Core.DeviceResized += s => _View.Size = s;
+            //Layer_Background.View = _View;
+            //Layer_Game.View = _View;
 
             // Player
             _Player = new Player(_Core, _InputMap);
@@ -67,6 +75,7 @@ namespace DreamAwake
 
         protected override void Update(float deltaT)
         {
+            _View.Center = _Player.CameraFocus;
         }
 
         protected override void Destroy()
