@@ -25,6 +25,9 @@ namespace DreamAwake
         private Music _BaseMusic;
         private Music _LightMusic;
         private Music _DarkMusic;
+        private float _BaseMusicVolume = 100;
+        private float _LightMusicVolume = 100;
+        private float _DarkMusicVolume = 100;
 
 
         public bool Light
@@ -97,9 +100,9 @@ namespace DreamAwake
             _LightMusic.Loop = true;
             _DarkMusic.Loop = true;
 
-            _BaseMusic.Volume = 100;
+            _BaseMusic.Volume = _BaseMusicVolume;
             _DarkMusic.Volume = 0;
-            _LightMusic.Volume = 100;
+            _LightMusic.Volume = _LightMusicVolume;
 
             Light = true;
             return true;
@@ -128,11 +131,11 @@ namespace DreamAwake
             if(Light)
             {
                 _DarkMusic.Volume = 0;
-                _LightMusic.Volume = 100;
+                _LightMusic.Volume = _LightMusicVolume;
             }
             else if (!Light)
             {
-                _DarkMusic.Volume = 100;
+                _DarkMusic.Volume = _DarkMusicVolume;
                 _LightMusic.Volume = 0;
             }
         }
