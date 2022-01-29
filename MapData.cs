@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using BlackCoat;
+using BlackCoat.Collision;
 using BlackCoat.Collision.Shapes;
 using SFML.Graphics;
 using SFML.System;
@@ -16,20 +17,29 @@ namespace DreamAwake
         public Vector2i MapSize { get; private set; }
         public Vector2i TileSize { get; private set; }
         public Layer[] Layer { get; private set; }
+        public CollisionLayer[] CollisionLayer { get; private set; }
 
-        public IEnumerable<(String type, RectangleCollisionShape collision)> Load(Core core, string file)
+        public void Load(Core core, string file)
         {
-            var map = new List<(String type, RectangleCollisionShape collision)>();
+            // Load Collision Layer
+            var map = new List<(CollisionType type, RectangleCollisionShape collision)>();
             var root = XElement.Load(file);
-            var entities = root.Element("objectgroup");
-            foreach (var item in entities.Elements())
-            {
-                var pos = new Vector2f((float)item.Attribute("x"), (float)item.Attribute("y"));
-                var size = new Vector2f((float)item.Attribute("width"), (float)item.Attribute("height"));
-                //map.Add((item.Attribute("type").Value, new RectangleCollisionShape(core.CollisionSystem, pos, size)));
-            }
+            CollisionLayer = root.Elements("objectgroup")
+                                 .Select(l => new CollisionLayer()
+                                 {
+                                     IsLight = l.Element("properties") == null,
+                                     Collisions = l.Elements("object")
+                                                   .Select(o=> new CollisionObject()
+                                                   {
+                                                       Type = ParseCollisionType(o.Attribute("type")?.Value),
+                                                       Shape = new RectangleCollisionShape(core.CollisionSystem,
+                                                            new Vector2f((float)o.Attribute("x"), (float)o.Attribute("y")),
+                                                            new Vector2f((float)o.Attribute("width"), (float)o.Attribute("height")))
+                                                   }).ToArray()
+                                 }).ToArray();
 
 
+            // Load Tilemap Layer
             MapSize = new Vector2i((int)root.Attribute("width"), (int)root.Attribute("height"));
             TileSize = new Vector2i((int)root.Attribute("tilewidth"), (int)root.Attribute("tileheight"));
             var columns = (int)root.Element("tileset").Attribute("columns");
@@ -49,19 +59,49 @@ namespace DreamAwake
                                 })
                         ).ToArray()
             }).ToArray();
-            return map;
+        }
+
+        private static CollisionType ParseCollisionType(string type)
+        {
+            if (type == null) return CollisionType.Normal;
+            return (CollisionType)Enum.Parse(typeof(CollisionType), type, true);
         }
     }
 
     class Layer
     {
-        public Tile[] Tiles { get; set; }
         public bool IsLight { get; set; }
+        public Tile[] Tiles { get; set; }
     }
 
     class Tile
     {
         public Vector2f Position { get; set; }
         public Vector2i Coordinates { get; set; }
+    }
+
+    class CollisionLayer
+    {
+        public bool IsLight { get; set; }
+        public CollisionObject[] Collisions { get; set; }
+    }
+
+    class CollisionObject : ICollisionShape
+    {
+        public CollisionType Type { get; set; }
+        public RectangleCollisionShape Shape { get; set; }
+
+        public Geometry CollisionGeometry => Shape.CollisionGeometry;
+
+        public bool CollidesWith(Vector2f point) => Shape.CollidesWith(point);
+        public bool CollidesWith(ICollisionShape other) => Shape.CollidesWith(other);
+    }
+
+    enum CollisionType
+    {
+        Normal,
+        Killzone,
+        Goal,
+        Start
     }
 }

@@ -17,7 +17,9 @@ namespace DreamAwake
 
     class Player : Container
     {
-        public Vector2f CameraFocus { get; set; }
+        public Vector2f PlayerPosition { get => _Dot.Position; set => _Dot.Position = value; }
+        public Func<Vector2f, bool> OnGround { get; set; }
+        public Func<Vector2f, bool> AtWall { get; set; }
 
         private SimpleInputMap<GameAction> _InputMap;
 
@@ -31,8 +33,6 @@ namespace DreamAwake
         public float _MovementSpeed { get; set; }
         public float _JumpForce { get; set; }
         public float _GravityForce { get; set; }
-
-        private float _GroundLevel = 500;
 
         private bool _IsGrounded = true;
         private bool _HasJumped = false;
@@ -78,6 +78,7 @@ namespace DreamAwake
 
             _Dot = new Circle(_Core, _DotRadius, Color.Blue, Color.Yellow);
             _Dot.Position = new Vector2f(360, 500);
+            _Dot.Visible = false;
 
             _JumpForce = 480f;
             _GravityForce = -9.81f;
@@ -190,24 +191,26 @@ namespace DreamAwake
         public override void Update(float deltaT)
         {
             base.Update(deltaT);
-            IsGrounded();
 
             if (_HasJumped)
             {
                 _Velocity = new Vector2f(0, -_JumpForce);
                 _HasJumped = false;
-
-
             }
             else
             {
                 _Velocity -= new Vector2f(0, _GravityForce);
-
             }
 
+            var movement = _Direction + _Velocity;
+            if (AtWall(_Dot.Position + new Vector2f(16 * _IdleShadowAnimation.Scale.X, -16)))
+                movement = new Vector2f(0, movement.Y);
+            if (_IsGrounded = OnGround(_Dot.Position) && movement.Y > 0)
+                movement = new Vector2f(movement.X, 0);
 
-            _Dot.Position += (_Direction + _Velocity) * deltaT;
-
+            // Perform Movement
+            _Dot.Position += movement * deltaT;
+            
 
 
             // animation logic
@@ -276,10 +279,6 @@ namespace DreamAwake
             }
 
 
-            if (_Dot.Position.Y >= _GroundLevel)
-                _Dot.Position = new Vector2f(_Dot.Position.X, _GroundLevel);
-
-
             _IdleShadowAnimation.Position = _Dot.Position;
             _IdleNormalAnimation.Position = _Dot.Position;
             _JumpShadowAnimation.Position = _Dot.Position;
@@ -288,7 +287,7 @@ namespace DreamAwake
             _WalkNormalAnimation.Position = _Dot.Position;
 
 
-            CameraFocus = _Dot.Position;
+            PlayerPosition = _Dot.Position;
         }
 
 
@@ -299,13 +298,6 @@ namespace DreamAwake
                 DefinitionFrames[i] = new IntRect(i* 32, 0, 32, 32);
             }
 
-        }
-
-
-
-        private void IsGrounded()
-        {         
-            _IsGrounded = _Dot.Position.Y == _GroundLevel;
         }
 
 

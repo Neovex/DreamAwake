@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#cfe5ff" nextlayerid="5" nextobjectid="15">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="50" height="25" tilewidth="16" tileheight="16" infinite="0" backgroundcolor="#cfe5ff" nextlayerid="5" nextobjectid="16">
  <tileset firstgid="1" name="Tileset" tilewidth="16" tileheight="16" tilecount="598" columns="26">
   <image source="../../MasterTileset.png" width="416" height="368"/>
  </tileset>
- <layer id="1" name="Light Layer 1" width="50" height="25" visible="0">
+ <layer id="1" name="Light Layer 1" width="50" height="25">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -32,7 +32,7 @@
 316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316,316
 </data>
  </layer>
- <layer id="3" name="Dark Layer 2" width="50" height="25">
+ <layer id="3" name="Dark Layer 2" width="50" height="25" visible="0">
   <properties>
    <property name="Type" value="Dark"/>
   </properties>
@@ -64,7 +64,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="1" name="Dark Layer 1" width="50" height="25">
+ <layer id="1" name="Dark Layer 1" width="50" height="25" visible="0">
   <properties>
    <property name="Type" value="Dark"/>
   </properties>
@@ -96,7 +96,7 @@
 57,58,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,34,4
 </data>
  </layer>
- <objectgroup id="2" name="Collision Light" visible="0">
+ <objectgroup id="2" name="Collision Light">
   <object id="2" x="0" y="239.333" width="799.333" height="33.3333"/>
   <object id="3" x="223.333" y="223.333" width="16" height="17.3333"/>
   <object id="4" x="240" y="192" width="14" height="50"/>
@@ -104,10 +104,11 @@
   <object id="6" x="464" y="127.333" width="14.6667" height="138.667"/>
   <object id="7" x="576" y="208.667" width="16" height="34.6667"/>
   <object id="8" x="656" y="224" width="15.3333" height="22.6667"/>
-  <object id="9" x="777.333" y="181.333" width="20" height="57.3333"/>
-  <object id="12" x="14.6667" y="222" width="19.3333" height="18"/>
+  <object id="9" type="Goal" x="777.333" y="181.333" width="20" height="82"/>
+  <object id="12" type="Start" x="34.1667" y="221.5" width="14.8333" height="13"/>
+  <object id="15" x="0.666667" y="81.3333" width="15.3333" height="158"/>
  </objectgroup>
- <objectgroup id="4" name="Collision Dark">
+ <objectgroup id="4" name="Collision Dark" visible="0">
   <properties>
    <property name="Type" value="Dark"/>
   </properties>
