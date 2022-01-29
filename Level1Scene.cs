@@ -14,6 +14,7 @@ namespace DreamAwake
     class Level1Scene : Scene
     {
         private SimpleInputMap<GameAction> _InputMap;
+        private Player _Player;
 
         public Level1Scene(Core core) : base(core, "Level1", "Assets")
         {
@@ -24,6 +25,9 @@ namespace DreamAwake
             _InputMap = new SimpleInputMap<GameAction>(Input);
             _InputMap.MappedOperationInvoked += HandleInput;
             Game.SetupInput(_InputMap);
+
+            _Player = new Player(_Core, _InputMap);
+            Layer_Game.Add(_Player);
 
             return true;
         }
