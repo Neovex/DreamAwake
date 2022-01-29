@@ -25,10 +25,14 @@ namespace DreamAwake
         private Music _BaseMusic;
         private Music _LightMusic;
         private Music _DarkMusic;
-        private float _BaseMusicVolume = 100;
-        private float _LightMusicVolume = 100;
-        private float _DarkMusicVolume = 100;
+        private Music _AmbienceLight;
+        private Music _AmbienceDark;
 
+        private float _BaseMusicVolume = 50;
+        private float _LightMusicVolume = 50;
+        private float _DarkMusicVolume = 50;
+        private float _AmbienceLightVolume = 100;
+        private float _AmbienceDarkVolume = 100;
 
         public bool Light
         {
@@ -93,16 +97,25 @@ namespace DreamAwake
             _BaseMusic = MusicLoader.Load("GameJam_DreamWake_BasicLayer002");
             _LightMusic = MusicLoader.Load("GameJam_DreamWake_LightWorld002");
             _DarkMusic = MusicLoader.Load("GameJam_DreamWake_DarkWorld002");
+            _AmbienceLight = MusicLoader.Load("AmbienceLoopLight_01");
+            _AmbienceDark = MusicLoader.Load("AmbienceLoopDark_01");
             _BaseMusic.Play();
             _LightMusic.Play();
             _DarkMusic.Play();
+            _AmbienceLight.Play();
+            _AmbienceDark.Play();
             _BaseMusic.Loop = true;
             _LightMusic.Loop = true;
             _DarkMusic.Loop = true;
+            _AmbienceLight.Loop = true;
+            _AmbienceDark.Loop = true;
+
 
             _BaseMusic.Volume = _BaseMusicVolume;
-            _DarkMusic.Volume = 0;
             _LightMusic.Volume = _LightMusicVolume;
+            _DarkMusic.Volume = 0;
+            _AmbienceLight.Volume = _AmbienceLightVolume;
+            _AmbienceDark.Volume = 0;
 
             Light = true;
             return true;
@@ -132,11 +145,16 @@ namespace DreamAwake
             {
                 _DarkMusic.Volume = 0;
                 _LightMusic.Volume = _LightMusicVolume;
+                _AmbienceDark.Volume = 0;
+                _AmbienceLight.Volume = _AmbienceLightVolume;
             }
             else if (!Light)
             {
                 _DarkMusic.Volume = _DarkMusicVolume;
                 _LightMusic.Volume = 0;
+                _AmbienceDark.Volume = _AmbienceDarkVolume;
+                _AmbienceLight.Volume = 0;
+
             }
         }
 
