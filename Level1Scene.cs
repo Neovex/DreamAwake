@@ -7,6 +7,7 @@ using BlackCoat;
 using BlackCoat.Entities;
 using BlackCoat.Entities.Shapes;
 using BlackCoat.InputMapping;
+using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 
@@ -21,6 +22,18 @@ namespace DreamAwake
         private CollisionLayer[] _Collisions;
 
         private bool _Light;
+
+        private Music _BaseMusic;
+        private Music _LightMusic;
+        private Music _DarkMusic;
+        private Music _AmbienceLight;
+        private Music _AmbienceDark;
+
+        private float _BaseMusicVolume = 50;
+        private float _LightMusicVolume = 50;
+        private float _DarkMusicVolume = 50;
+        private float _AmbienceLightVolume = 100;
+        private float _AmbienceDarkVolume = 100;
 
         public bool Light
         {
@@ -75,6 +88,23 @@ namespace DreamAwake
                 Layer_Background.Add(mapRenderer);
             }
 
+            // Music
+            _BaseMusic = MusicLoader.Load("GameJam_DreamWake_BasicLayer002");
+            _LightMusic = MusicLoader.Load("GameJam_DreamWake_LightWorld002");
+            _DarkMusic = MusicLoader.Load("GameJam_DreamWake_DarkWorld002");
+            _AmbienceLight = MusicLoader.Load("AmbienceLoopLight_01");
+            _AmbienceDark = MusicLoader.Load("AmbienceLoopDark_01");
+            _BaseMusic.Play();
+            _LightMusic.Play();
+            _DarkMusic.Play();
+            _AmbienceLight.Play();
+            _AmbienceDark.Play();
+            _BaseMusic.Loop = true;
+            _LightMusic.Loop = true;
+            _DarkMusic.Loop = true;
+            _AmbienceLight.Loop = true;
+            _AmbienceDark.Loop = true;
+
             // Collision Layer
             _Collisions = mapData.CollisionLayer;
 
@@ -87,6 +117,12 @@ namespace DreamAwake
             };
             Layer_Game.Add(_Player);
             //OpenInspector(_Player);
+
+            _BaseMusic.Volume = _BaseMusicVolume;
+            _LightMusic.Volume = _LightMusicVolume;
+            _DarkMusic.Volume = 0;
+            _AmbienceLight.Volume = _AmbienceLightVolume;
+            _AmbienceDark.Volume = 0;
 
             // Start Map
             Light = true;
@@ -116,6 +152,22 @@ namespace DreamAwake
                 }
             }
             _View.Center = _Player.PlayerPosition;
+
+            if (Light)
+            {
+                _DarkMusic.Volume = 0;
+                _LightMusic.Volume = _LightMusicVolume;
+                _AmbienceDark.Volume = 0;
+                _AmbienceLight.Volume = _AmbienceLightVolume;
+            }
+            else if (!Light)
+            {
+                _DarkMusic.Volume = _DarkMusicVolume;
+                _LightMusic.Volume = 0;
+                _AmbienceDark.Volume = _AmbienceDarkVolume;
+                _AmbienceLight.Volume = 0;
+
+            }
         }
 
         protected override void Destroy()
