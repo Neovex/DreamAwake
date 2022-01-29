@@ -19,6 +19,30 @@ namespace DreamAwake
         private MapRenderer _Map;
         private View _View;
 
+        private bool _Light;
+
+        public bool Light
+        {
+            get { return _Light; }
+            set
+            {
+                if (_Light = value)
+                {
+                    _Core.ClearColor = new Color(0xcfe5ff);
+                }
+                else
+                {
+                    _Core.ClearColor = new Color(0x272727);
+                }
+                foreach (var renderer in Layer_Background.GetAll<MapRenderer>())
+                {
+                    renderer.Visible = renderer.IsLight == _Light;
+                }
+                
+            }
+        }
+
+
         public Level1Scene(Core core) : base(core, "Level1", "Assets")
         {
         }
@@ -42,19 +66,22 @@ namespace DreamAwake
             OpenInspector(_Player);
 
             // Tile Map
-            var tex = TextureLoader.Load("tiles_28");
+            var tex = TextureLoader.Load("MasterTileset");
             var mapData = new MapData();
-            mapData.Load(_Core, "Assets\\test.tmx");
+            mapData.Load(_Core, "Assets\\Level1.tmx");
             foreach (var layer in mapData.Layer)
             {
                 var mapRenderer = new MapRenderer(_Core, mapData.MapSize, tex, mapData.TileSize);
-                for (int i = 0; i < layer.Length; i++)
+                mapRenderer.IsLight = layer.IsLight;
+                for (int i = 0; i < layer.Tiles.Length; i++)
                 {
-                    mapRenderer.AddTile(i * 4, layer[i].Pos, layer[i].Cod);
+                    mapRenderer.AddTile(i * 4, layer.Tiles[i].Position, layer.Tiles[i].Coordinates);
                 }
                 Layer_Background.Add(mapRenderer);
             }
 
+
+            Light = true;
             return true;
         }
 
@@ -69,6 +96,7 @@ namespace DreamAwake
                 case GameAction.Jump:
                     break;
                 case GameAction.Activate:
+                    if(activate) Light = !Light;
                     break;
             }
         }

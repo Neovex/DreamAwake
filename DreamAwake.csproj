@@ -11,8 +11,8 @@
     <None Remove="Assets\Idle_Normal.png" />
     <None Remove="Assets\Jump.png" />
     <None Remove="Assets\Jump_Normal.png" />
-    <None Remove="Assets\test.tmx" />
-    <None Remove="Assets\tiles_28.png" />
+    <None Remove="Assets\Level1.tmx" />
+    <None Remove="Assets\MasterTileset.png" />
     <None Remove="Assets\Walk.png" />
     <None Remove="Assets\Walk_Normal.png" />
   </ItemGroup>
@@ -30,10 +30,10 @@
     <Content Include="Assets\Jump_Normal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\test.tmx">
+    <Content Include="Assets\Level1.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\tiles_28.png">
+    <Content Include="Assets\MasterTileset.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Walk.png">

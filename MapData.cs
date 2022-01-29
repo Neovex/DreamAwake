@@ -15,7 +15,7 @@ namespace DreamAwake
     {
         public Vector2i MapSize { get; private set; }
         public Vector2i TileSize { get; private set; }
-        public (Vector2f Pos, Vector2i Cod)[][] Layer { get; private set; }
+        public Layer[] Layer { get; private set; }
 
         public IEnumerable<(String type, RectangleCollisionShape collision)> Load(Core core, string file)
         {
@@ -34,19 +34,34 @@ namespace DreamAwake
             TileSize = new Vector2i((int)root.Attribute("tilewidth"), (int)root.Attribute("tileheight"));
             var columns = (int)root.Element("tileset").Attribute("columns");
 
-            Layer = root.Elements("layer")
-                      .Select(l => l.Element("data").Value)
-                      .Select(rawMap => rawMap.Split('\n', StringSplitOptions.RemoveEmptyEntries)
-                            .SelectMany((line, y) => line.Trim().Split(',')
+            Layer = root.Elements("layer").Select(l => new Layer()
+            {
+                IsLight = l.Element("properties") == null,
+                Tiles = l.Element("data").Value.Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                         .SelectMany((line, y) => line.Trim().Split(',', StringSplitOptions.RemoveEmptyEntries)
                                 .Select(gidRaw => (Success: int.TryParse(gidRaw, out int gid), Gid: gid))
                                 .Where(exp => exp.Success)
-                                .Select((exp, x) => (Pos: new Vector2f(x * TileSize.X, y * TileSize.Y),
-                                                    Cod: new Vector2i((exp.Gid - 1) % columns * TileSize.X,
-                                                                      (exp.Gid - 1) / columns * TileSize.Y))
-                                )
-                            ).ToArray()
-                        ).ToArray();
+                                .Select((exp, x) => new Tile()
+                                {
+                                    Position = new Vector2f(x * TileSize.X, y * TileSize.Y),
+                                    Coordinates = new Vector2i((exp.Gid - 1) % columns * TileSize.X,
+                                                                (exp.Gid - 1) / columns * TileSize.Y)
+                                })
+                        ).ToArray()
+            }).ToArray();
             return map;
         }
+    }
+
+    class Layer
+    {
+        public Tile[] Tiles { get; set; }
+        public bool IsLight { get; set; }
+    }
+
+    class Tile
+    {
+        public Vector2f Position { get; set; }
+        public Vector2i Coordinates { get; set; }
     }
 }

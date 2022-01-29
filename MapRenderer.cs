@@ -15,6 +15,8 @@ namespace DreamAwake
 
         public override Color Color { get; set; }
         public object Size { get; }
+        public bool IsLight { get; set; }
+
 
         public MapRenderer(Core core, Vector2i mapSize, Texture texture, Vector2i tileSize) : base(core, new RectangleShape())
         {
