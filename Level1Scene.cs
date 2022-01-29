@@ -28,11 +28,11 @@ namespace DreamAwake
         private Music _AmbienceLight;
         private Music _AmbienceDark;
 
-        private float _BaseMusicVolume = 50;
-        private float _LightMusicVolume = 50;
-        private float _DarkMusicVolume = 50;
-        private float _AmbienceLightVolume = 100;
-        private float _AmbienceDarkVolume = 100;
+        public float _BaseMusicVolume { get; set; }
+        public float _LightMusicVolume { get; set; }
+        public float _DarkMusicVolume { get; set; }
+        public float _AmbienceLightVolume { get; set; }
+        public float _AmbienceDarkVolume { get; set; }
 
         public bool Light
         {
@@ -62,8 +62,15 @@ namespace DreamAwake
 
         protected override bool Load()
         {
-            // Input
-            _InputMap = new SimpleInputMap<GameAction>(Input);
+                    
+            _BaseMusicVolume = 80;
+            _LightMusicVolume = 100;
+            _DarkMusicVolume = 100;
+            _AmbienceLightVolume = 40;
+            _AmbienceDarkVolume = 30;
+
+        // Input
+        _InputMap = new SimpleInputMap<GameAction>(Input);
             _InputMap.MappedOperationInvoked += HandleInput;
             Game.SetupInput(_InputMap);
 
