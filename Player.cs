@@ -23,8 +23,7 @@ namespace DreamAwake
         private Vector2f _Direction;
         private Vector2f _Velocity;
 
-        private float _MovementSpeed = 100f;
-
+        public float _MovementSpeed { get; set; }
         public float _JumpForce { get; set; }
         public float _GravityForce { get; set; }
 
@@ -44,6 +43,10 @@ namespace DreamAwake
             _Dot = new Circle(_Core, _DotRadius, Color.Blue, Color.Yellow);
             _Dot.Position = new Vector2f(360, 500);
 
+            _JumpForce = 750f;
+            _GravityForce = -9.81f;
+            _MovementSpeed = 100f;
+
             Add(_Dot);
             
 
@@ -57,13 +60,13 @@ namespace DreamAwake
             {
                 case GameAction.Left:
                     if (activate)
-                        _Direction = new Vector2f(-1 * _MovementSpeed, _Direction.Y);
+                        _Direction = new Vector2f(-_MovementSpeed, _Direction.Y);
                     else
                         _Direction = new Vector2f(0, _Direction.Y);
                     break;
                 case GameAction.Right:
                     if (activate)
-                        _Direction = new Vector2f(1 * _MovementSpeed, _Direction.Y);
+                        _Direction = new Vector2f(_MovementSpeed, _Direction.Y);
                     else
                         _Direction = new Vector2f(0, _Direction.Y);
                     break;
