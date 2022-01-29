@@ -29,6 +29,7 @@ namespace DreamAwake
 
             _Player = new Player(_Core, _InputMap);
             Layer_Game.Add(_Player);
+            OpenInspector(_Player);
 
             return true;
         }
