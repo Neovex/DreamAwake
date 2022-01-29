@@ -29,7 +29,7 @@ namespace DreamAwake
             Game.SetupInput(_InputMap);
 
             // Player
-            _Player = new Player(_Core, _InputMap);
+            _Player = new Player(_Core, _InputMap, TextureLoader);
             Layer_Game.Add(_Player);
             OpenInspector(_Player);
 
