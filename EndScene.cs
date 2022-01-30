@@ -3,27 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using BlackCoat;
 using BlackCoat.Entities;
+using SFML.System;
 
 namespace DreamAwake
 {
     class EndScene : Scene
     {
         public EndScene(Core core) : base(core, "WinScreen", "Assets")
-        {
-        }
+        { }
 
         protected override bool Load()
         {
-            Layer_Game.Add(new TextItem(_Core, "You Win") { Position = _Core.DeviceSize / 2 });
+            var tex = TextureLoader.Load("WinBG");
+            Layer_Game.Add(new Graphic(_Core, tex)
+            {
+                Origin = tex.Size.ToVector2f() / 2,
+                Scale = new Vector2f(4, 4)
+            });
+            _Core.DeviceResized += HandleDeviceResized;
+            HandleDeviceResized(_Core.DeviceSize);
             return true;
         }
 
-        protected override void Update(float deltaT)
+        private void HandleDeviceResized(Vector2f size)
         {
+            Layer_Game.GetFirst<Graphic>().Position = size / 2;
         }
 
+        protected override void Update(float deltaT)
+        { }
+
         protected override void Destroy()
-        {
-        }
+        { }
     }
 }
