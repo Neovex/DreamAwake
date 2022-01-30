@@ -15,7 +15,7 @@ namespace DreamAwake
         public static string TITLE => "Dream Awake";
         public static Core Core;
         public static int CurrentLevel = -1;
-        public static string[] Levels = new[] { "Level1", "Level2", "Level3" };
+        public static string[] Levels = new[] { "Level1", "Level2", "Level3", "Level4" };
 
 
         public static void SetupInput(SimpleInputMap<GameAction> map)
