@@ -62,7 +62,11 @@ namespace DreamAwake
 
         protected override bool Load()
         {
-                    
+
+            SfxLoader.RootFolder = "Assets\\SFX";
+            SfxLoader.LoadAllFilesInDirectory();
+
+
             _BaseMusicVolume = 80;
             _LightMusicVolume = 100;
             _DarkMusicVolume = 100;
@@ -116,7 +120,7 @@ namespace DreamAwake
             _Collisions = mapData.CollisionLayer;
 
             // Player
-            _Player = new Player(_Core, _InputMap, TextureLoader)
+            _Player = new Player(_Core, _InputMap, TextureLoader, SfxLoader)
             {
                 PlayerPosition = _Collisions.SelectMany(l => l.Collisions).First(c => c.Type == CollisionType.Start).Shape.Position,
                 AtWall = pos => _Collisions.Where(l => l.IsLight == Light).SelectMany(l => l.Collisions).Any(c => c.Type == CollisionType.Normal && c.CollidesWith(pos)),
@@ -139,6 +143,8 @@ namespace DreamAwake
         private void HandleInput(GameAction action, bool activate)
         {
             if (action == GameAction.Activate && activate) Light = !Light;
+
+          
         }
 
         protected override void Update(float deltaT)

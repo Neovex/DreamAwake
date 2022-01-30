@@ -18,6 +18,37 @@
     <None Remove="Assets\Jump_Normal.png" />
     <None Remove="Assets\Level1.tmx" />
     <None Remove="Assets\MasterTileset.png" />
+    <None Remove="Assets\SFX\DeathFallSound_01.wav" />
+    <None Remove="Assets\SFX\FootstepDark_01.wav" />
+    <None Remove="Assets\SFX\FootstepDark_02.wav" />
+    <None Remove="Assets\SFX\FootstepDark_03.wav" />
+    <None Remove="Assets\SFX\FootstepDark_04.wav" />
+    <None Remove="Assets\SFX\FootstepDark_05.wav" />
+    <None Remove="Assets\SFX\FootstepDark_06.wav" />
+    <None Remove="Assets\SFX\FootstepLight_01.wav" />
+    <None Remove="Assets\SFX\FootstepLight_02.wav" />
+    <None Remove="Assets\SFX\FootstepLight_03.wav" />
+    <None Remove="Assets\SFX\FootstepLight_04.wav" />
+    <None Remove="Assets\SFX\FootstepLight_05.wav" />
+    <None Remove="Assets\SFX\FootstepLight_06.wav" />
+    <None Remove="Assets\SFX\JumpSoundDark_01.wav" />
+    <None Remove="Assets\SFX\JumpSoundDark_02.wav" />
+    <None Remove="Assets\SFX\JumpSoundDark_03.wav" />
+    <None Remove="Assets\SFX\JumpSoundDark_04.wav" />
+    <None Remove="Assets\SFX\JumpSoundLight_01.wav" />
+    <None Remove="Assets\SFX\JumpSoundLight_02.wav" />
+    <None Remove="Assets\SFX\JumpSoundLight_03.wav" />
+    <None Remove="Assets\SFX\JumpSoundLight_04.wav" />
+    <None Remove="Assets\SFX\LandingSoundDark_01.wav" />
+    <None Remove="Assets\SFX\LandingSoundDark_02.wav" />
+    <None Remove="Assets\SFX\LandingSoundDark_03.wav" />
+    <None Remove="Assets\SFX\LandingSoundDark_04.wav" />
+    <None Remove="Assets\SFX\LandingSoundLight_01.wav" />
+    <None Remove="Assets\SFX\LandingSoundLight_02.wav" />
+    <None Remove="Assets\SFX\LandingSoundLight_03.wav" />
+    <None Remove="Assets\SFX\LandingSoundLight_04.wav" />
+    <None Remove="Assets\SFX\SwitchDarkToLightSound_01.wav" />
+    <None Remove="Assets\SFX\SwitchLightToDarkSound_01.wav" />
     <None Remove="Assets\Walk.png" />
     <None Remove="Assets\Walk_Normal.png" />
   </ItemGroup>
@@ -54,6 +85,99 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\MasterTileset.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\DeathFallSound_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepDark_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepDark_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepDark_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepDark_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepDark_05.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepDark_06.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepLight_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepLight_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepLight_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepLight_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepLight_05.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\FootstepLight_06.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundDark_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundDark_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundDark_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundDark_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundLight_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundLight_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundLight_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\JumpSoundLight_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundDark_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundDark_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundDark_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundDark_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundLight_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundLight_02.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundLight_03.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\LandingSoundLight_04.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\SwitchDarkToLightSound_01.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SFX\SwitchLightToDarkSound_01.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Walk.png">

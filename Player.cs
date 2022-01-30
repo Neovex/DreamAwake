@@ -10,7 +10,8 @@ using BlackCoat.InputMapping;
 using SFML.System;
 using SFML.Graphics;
 using BlackCoat.Entities.Animation;
-
+using BlackCoat.AssetHandling;
+using SFML.Audio;
 
 namespace DreamAwake
 {
@@ -22,6 +23,7 @@ namespace DreamAwake
         public Func<Vector2f, bool> AtWall { get; set; }
 
         private SimpleInputMap<GameAction> _InputMap;
+        private SfxLoader _SfxLoader;
 
         private Circle _Dot;
         private float _DotRadius = 5f;
@@ -70,17 +72,23 @@ namespace DreamAwake
         private BlittingAnimation _WalkNormalAnimation;
         private float _durationWalkNormal = 0.175f;
 
+        // SFX 
+        private string _RandomString = "";
+        SfxManager _SoundManager;
 
-        public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader textureLoader) : base(core)
+
+
+        public Player(Core core, SimpleInputMap<GameAction> inputMap, TextureLoader textureLoader, SfxLoader sfxLoader) : base(core)
         {
             _InputMap = inputMap;
             _InputMap.MappedOperationInvoked += HandleInput;
+            _SfxLoader = sfxLoader;
 
             _Dot = new Circle(_Core, _DotRadius, Color.Blue, Color.Yellow);
             _Dot.Position = new Vector2f(360, 500);
             _Dot.Visible = false;
 
-            _JumpForce = 480f;
+            _JumpForce = 400f;
             _GravityForce = -9.81f;
             _MovementSpeed = 100f;
 
@@ -125,11 +133,17 @@ namespace DreamAwake
             _WalkShadowAnimation.Origin = new Vector2f(16, 32);
 
 
+            _SoundManager = new SfxManager(_SfxLoader, () => 100);
+            _SoundManager.LoadFromDirectory("Assets\\SFX", 1);
+
         }
 
 
         private void HandleInput(GameAction action, bool activate)
         {
+
+
+
             switch (action)
             {
                 case GameAction.Left:
@@ -210,7 +224,6 @@ namespace DreamAwake
 
             // Perform Movement
             _Dot.Position += movement * deltaT;
-            
 
 
             // animation logic
@@ -245,6 +258,8 @@ namespace DreamAwake
                     _JumpNormalAnimation.Visible = false;
                     _WalkShadowAnimation.Visible = true;
                     _WalkNormalAnimation.Visible = false;
+                    _SoundManager.Play(RandomStringGenerator());
+
                 }
                 else
                 {
@@ -254,6 +269,7 @@ namespace DreamAwake
                     _JumpNormalAnimation.Visible = false;
                     _WalkShadowAnimation.Visible = false;
                     _WalkNormalAnimation.Visible = true;
+                    _SoundManager.Play(RandomStringGenerator());
                 }
             }
             else
@@ -301,5 +317,37 @@ namespace DreamAwake
         }
 
 
+        private string RandomStringGenerator()
+        {
+
+            Random randomNumber = new Random();
+
+            if(_IsGrounded && (_Direction.X != 0))
+            {
+                if (_InTheDark)
+                {
+                    _RandomString = "FootstepDark_0" + randomNumber.Next(1, 7).ToString();
+                }
+                else
+                {
+                    _RandomString = "FootstepLight_0" + randomNumber.Next(1, 7).ToString();
+                }
+
+            }
+            else if (_HasJumped)
+            {
+                if (_InTheDark)
+                {
+                    _RandomString = "JumpSoundDark_0" + randomNumber.Next(1, 5).ToString();
+                }
+                else
+                {
+                    _RandomString = "JumpSoundLight_0" + randomNumber.Next(1, 5).ToString();
+                }
+            }
+
+
+            return _RandomString;
+        }
     }
 }
