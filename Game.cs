@@ -13,6 +13,9 @@ namespace DreamAwake
     static class Game
     {
         public static string TITLE => "Dream Awake";
+        public static Core Core;
+        public static int CurrentLevel = -1;
+        public static string[] Levels = new[] { "Level1" };//, "Level2", "Level3" };
 
 
         public static void SetupInput(SimpleInputMap<GameAction> map)
@@ -29,6 +32,15 @@ namespace DreamAwake
 
             map.AddKeyboardMapping(Keyboard.Key.F, GameAction.Activate);
             map.AddKeyboardMapping(Keyboard.Key.RControl, GameAction.Activate);
+        }
+
+        public static void LoadNextLevel()
+        {
+            CurrentLevel++;
+            if(CurrentLevel >= Levels.Length)
+                Core.SceneManager.ChangeScene(new EndScene(Core));
+            else
+                Core.SceneManager.ChangeScene(new Level1Scene(Core, Levels[CurrentLevel]));
         }
     }
 }

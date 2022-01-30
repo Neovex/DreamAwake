@@ -56,8 +56,9 @@ namespace DreamAwake
         }
 
 
-        public Level1Scene(Core core) : base(core, "Level1", "Assets")
-        { }
+        public Level1Scene(Core core, string level) : base(core, level, "Assets")
+        {
+        }
 
 
         protected override bool Load()
@@ -69,8 +70,8 @@ namespace DreamAwake
             _AmbienceLightVolume = 40;
             _AmbienceDarkVolume = 30;
 
-        // Input
-        _InputMap = new SimpleInputMap<GameAction>(Input);
+            // Input
+            _InputMap = new SimpleInputMap<GameAction>(Input);
             _InputMap.MappedOperationInvoked += HandleInput;
             Game.SetupInput(_InputMap);
 
@@ -83,7 +84,7 @@ namespace DreamAwake
             // Tile Map
             var tex = TextureLoader.Load("MasterTileset");
             var mapData = new MapData();
-            mapData.Load(_Core, "Assets\\Level1.tmx");
+            mapData.Load(_Core, $"Assets\\{Name}.tmx");
             foreach (var layer in mapData.Layer)
             {
                 var mapRenderer = new MapRenderer(_Core, mapData.MapSize, tex, mapData.TileSize);
@@ -153,7 +154,7 @@ namespace DreamAwake
                             _Player.PlayerPosition = _Collisions.SelectMany(l => l.Collisions).First(c => c.Type == CollisionType.Start).Shape.Position;
                             break;
                         case CollisionType.Goal:
-                            // TODO : win - load next level via Game class
+                            Game.LoadNextLevel();
                             break;
                     }
                 }
