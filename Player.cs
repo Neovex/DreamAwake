@@ -89,8 +89,8 @@ namespace DreamAwake
             _Dot.Visible = false;
 
             // values for movement speed and jump,gravity forces 
-            _JumpForce = 400f;
-            _GravityForce = -9.81f;
+            _JumpForce = 160f;
+            _GravityForce = -2f;
             _MovementSpeed = 100f;
 
             Add(_Dot);
