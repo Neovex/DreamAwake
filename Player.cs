@@ -65,12 +65,12 @@ namespace DreamAwake
         private IntRect[] _WalkShadowDefinitionFrames;
         private int _SizeWalkShadowAnim = 4;
         private BlittingAnimation _WalkShadowAnimation;
-        private float _durationWalkShadow = 0.175f;
+        private float _durationWalkShadow = 0.09f;
 
         private IntRect[] _WalkNormalDefinitionFrames;
         private int _SizeWalkNormalAnim = 4;
         private BlittingAnimation _WalkNormalAnimation;
-        private float _durationWalkNormal = 0.175f;
+        private float _durationWalkNormal = 0.09f;
 
         // SFX 
         private string _RandomString = "";
@@ -88,12 +88,14 @@ namespace DreamAwake
             _Dot.Position = new Vector2f(360, 500);
             _Dot.Visible = false;
 
+            // values for movement speed and jump,gravity forces 
             _JumpForce = 400f;
             _GravityForce = -9.81f;
             _MovementSpeed = 100f;
 
             Add(_Dot);
 
+            // animation assets to define and load
             _IdleShadowDefinitionFrames = new IntRect[_SizeIdleShadowAnim];
             IntRectFill(_IdleShadowDefinitionFrames, _SizeIdleShadowAnim);
             _IdleShadowAnimation = new BlittingAnimation(_Core, _durationIdleShadow, textureLoader.Load("Idle"), _IdleShadowDefinitionFrames);
@@ -125,6 +127,7 @@ namespace DreamAwake
             Add(_WalkNormalAnimation);
 
 
+            // sets origin for animation in dependance of the player controller 
             _WalkNormalAnimation.Origin = new Vector2f(16, 32);
             _IdleShadowAnimation.Origin = new Vector2f(16, 32);
             _IdleNormalAnimation.Origin = new Vector2f(16, 32);
@@ -151,6 +154,7 @@ namespace DreamAwake
                     { 
                         _Direction = new Vector2f(-_MovementSpeed, _Direction.Y);
 
+                        // changes animation orintation
                         _IdleShadowAnimation.Scale = new Vector2f(-1, 1);
                         _IdleNormalAnimation.Scale = new Vector2f(-1, 1);
                         _JumpShadowAnimation.Scale = new Vector2f(-1, 1);
@@ -169,6 +173,7 @@ namespace DreamAwake
                     {
                         _Direction = new Vector2f(_MovementSpeed, _Direction.Y);
 
+                        // changes animation orintation
                         _IdleShadowAnimation.Scale = new Vector2f(1, 1);
                         _IdleNormalAnimation.Scale = new Vector2f(1, 1);
                         _JumpShadowAnimation.Scale = new Vector2f(1, 1);
@@ -184,16 +189,28 @@ namespace DreamAwake
                     break;
                 case GameAction.Jump:
                     if (activate && _IsGrounded)
+                    {
                         _HasJumped = true;
+                        _SoundManager.Play(RandomSoundStringGenerator());
+
+                    }
                     break;
                 case GameAction.Activate:
                     {
                         if (activate)
                         {
                             if (_InTheDark)
+                            {
                                 _InTheDark = false;
+                                _SoundManager.Play("SwitchDarkToLightSound_01");
+
+                            }
                             else
+                            {
                                 _InTheDark = true;
+                                _SoundManager.Play("SwitchLightToDarkSound_01");
+
+                            }
                         }
                     }
                     break;
@@ -237,6 +254,8 @@ namespace DreamAwake
                     _JumpNormalAnimation.Visible = false;
                     _WalkShadowAnimation.Visible = false;
                     _WalkNormalAnimation.Visible = false;
+
+
                 }
                 else
                 {
@@ -258,7 +277,7 @@ namespace DreamAwake
                     _JumpNormalAnimation.Visible = false;
                     _WalkShadowAnimation.Visible = true;
                     _WalkNormalAnimation.Visible = false;
-                    _SoundManager.Play(RandomStringGenerator());
+                    _SoundManager.Play(RandomSoundStringGenerator());
 
                 }
                 else
@@ -269,7 +288,8 @@ namespace DreamAwake
                     _JumpNormalAnimation.Visible = false;
                     _WalkShadowAnimation.Visible = false;
                     _WalkNormalAnimation.Visible = true;
-                    _SoundManager.Play(RandomStringGenerator());
+                    _SoundManager.Play(RandomSoundStringGenerator());
+
                 }
             }
             else
@@ -317,12 +337,12 @@ namespace DreamAwake
         }
 
 
-        private string RandomStringGenerator()
+        private string RandomSoundStringGenerator()
         {
 
             Random randomNumber = new Random();
 
-            if(_IsGrounded && (_Direction.X != 0))
+            if (_IsGrounded && (_Direction.X != 0) && !_HasJumped)
             {
                 if (_InTheDark)
                 {
@@ -345,9 +365,28 @@ namespace DreamAwake
                     _RandomString = "JumpSoundLight_0" + randomNumber.Next(1, 5).ToString();
                 }
             }
+            else
+            {
+                if (_InTheDark)
+                {
+                    _RandomString = "LandingSoundDark_0" + randomNumber.Next(1, 5).ToString();
+                }
+                else
+                {
+                    _RandomString = "LandingSoundLight_0" + randomNumber.Next(1, 5).ToString();
+                }
+            }
 
 
             return _RandomString;
         }
+
+        public void DeathSoundFX()
+        {
+            _SoundManager.Play("DeathFallSound_01");
+        }
+
     }
+
+
 }

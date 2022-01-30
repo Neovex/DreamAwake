@@ -64,7 +64,6 @@ namespace DreamAwake
         {
 
             SfxLoader.RootFolder = "Assets\\SFX";
-            SfxLoader.LoadAllFilesInDirectory();
 
 
             _BaseMusicVolume = 80;
@@ -156,7 +155,10 @@ namespace DreamAwake
                     switch (collision.Type)
                     {
                         case CollisionType.Killzone: // Respawn
-                            _Player.PlayerPosition = _Collisions.SelectMany(l => l.Collisions).First(c => c.Type == CollisionType.Start).Shape.Position;
+                            {
+                                _Player.PlayerPosition = _Collisions.SelectMany(l => l.Collisions).First(c => c.Type == CollisionType.Start).Shape.Position;
+                                _Player.DeathSoundFX();
+                            }
                             break;
                         case CollisionType.Goal:
                             Game.LoadNextLevel();
