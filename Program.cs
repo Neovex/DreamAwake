@@ -1,4 +1,5 @@
 using System;
+using System.Drawing;
 using BlackCoat;
 using SFML.Window;
 
@@ -12,7 +13,7 @@ namespace DreamAwake
 #if !DEBUG
             var launcher = new Launcher()
             {
-                //BannerImage = Image.FromFile("Assets\\Banner.png"),
+                BannerImage = Image.FromFile("Assets\\Bananner.png"),
                 Text = Game.TITLE
             };
             var device = Device.Create(launcher, Game.TITLE);
@@ -30,9 +31,12 @@ namespace DreamAwake
 #endif
                 // Setup Scene / Level Management
                 Game.Core = core;
-
-                //core.SceneManager.ChangeScene(new BlackCoatIntro(core, new MainMenuScene(core)));
+#if !DEBUG
+                core.SceneManager.ChangeScene(new BlackCoatIntro(core, new MainMenuScene(core)));
+#endif
+#if DEBUG
                 core.SceneManager.ChangeScene(new MainMenuScene(core));
+#endif
                 core.Run();
             }
         }
