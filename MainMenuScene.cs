@@ -21,6 +21,10 @@ namespace DreamAwake
 
         protected override bool Load()
         {
+            var music = MusicLoader.Load("AmbienceLoopLight_01");
+            music.Loop = true;
+            music.Play();
+
             _Core.DeviceResized += HandleDeviceResized;
 
             var tex = TextureLoader.Load("MainMenue");
