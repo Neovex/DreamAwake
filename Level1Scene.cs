@@ -75,7 +75,7 @@ namespace DreamAwake
             Game.SetupInput(_InputMap);
 
             // View
-            _View = new View(_Core.DeviceSize / 2, _Core.DeviceSize);
+            _View = new View(_Core.DeviceSize / 2, _Core.DeviceSize / 2);
             _Core.DeviceResized += s => _View.Size = s;
             Layer_Background.View = _View;
             Layer_Game.View = _View;
