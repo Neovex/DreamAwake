@@ -17,7 +17,6 @@ namespace DreamAwake
     {
         private SimpleInputMap<GameAction> _InputMap;
         private Player _Player;
-        private MapRenderer _Map;
         private View _View;
         private CollisionLayer[] _Collisions;
 

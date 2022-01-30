@@ -17,9 +17,13 @@
     <None Remove="Assets\Jump.png" />
     <None Remove="Assets\Jump_Normal.png" />
     <None Remove="Assets\Level1.tmx" />
+    <None Remove="Assets\Level2.tmx" />
+    <None Remove="Assets\Level3.tmx" />
+    <None Remove="Assets\MainMenue.png" />
     <None Remove="Assets\MasterTileset.png" />
     <None Remove="Assets\Walk.png" />
     <None Remove="Assets\Walk_Normal.png" />
+    <None Remove="Assets\WinBG.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +57,15 @@
     <Content Include="Assets\Level1.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Level2.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Level3.tmx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\MainMenue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\MasterTileset.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -60,6 +73,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Walk_Normal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WinBG.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
