@@ -158,6 +158,7 @@ namespace DreamAwake
                             {
                                 _Player.PlayerPosition = _Collisions.SelectMany(l => l.Collisions).First(c => c.Type == CollisionType.Start).Shape.Position;
                                 _Player.DeathSoundFX();
+                                Light = true;
                             }
                             break;
                         case CollisionType.Goal:
