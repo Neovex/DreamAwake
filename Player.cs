@@ -228,9 +228,13 @@ namespace DreamAwake
                 _Velocity = new Vector2f(0, -_JumpForce);
                 _HasJumped = false;
             }
-            else
+            else if(!_IsGrounded)
             {
                 _Velocity -= new Vector2f(0, _GravityForce);
+            }
+            else
+            {
+                _Velocity -= new Vector2f(0, 0);
             }
 
             var movement = _Direction + _Velocity;
