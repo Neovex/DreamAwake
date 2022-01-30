@@ -29,12 +29,14 @@ namespace DreamAwake
             _Container.Texture = tex;
             Layer_Game.Add(_Container);
 
-            _Start = new Rectangle(_Core, new Vector2f(31, 12), Color.Transparent);
+            _Start = new Rectangle(_Core, new Vector2f(31, 12), Color.Blue);
             _Start.Position = new Vector2f(53, 98);
+            _Start.Alpha = 0;
             _Container.Add(_Start);
 
-            _Exit = new Rectangle(_Core, new Vector2f(22, 12), Color.Transparent);
+            _Exit = new Rectangle(_Core, new Vector2f(22, 12), Color.Blue);
             _Exit.Position = new Vector2f(187, 98);
+            _Exit.Alpha = 0;
             _Container.Add(_Exit);
 
             HandleDeviceResized(_Core.DeviceSize);
@@ -52,6 +54,7 @@ namespace DreamAwake
             {
                 if (_Start.CollidesWith(Input.MousePosition / _Container.Scale.X)) Game.LoadNextLevel();
                 if (_Exit.CollidesWith(Input.MousePosition / _Container.Scale.X)) _Core.Exit();
+                //Log.Debug(Input.MousePosition / _Container.Scale.X, _Exit.Position);
             }
         }
 
